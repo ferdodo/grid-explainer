@@ -7,10 +7,6 @@
 		"skipLibCheck": true,
 		"moduleResolution": "bundler",
 		"baseUrl": ".",
-		"paths": {
-			"@grid-explainer/core": ["./core/dist"],
-			"@grid-explainer/design-system": ["./design-system/dist"]
-		},
 		"allowImportingTsExtensions": true,
 		"resolveJsonModule": true,
 		"isolatedModules": true,

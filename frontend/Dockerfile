@@ -9,14 +9,14 @@ WORKDIR /app
 COPY --from=core-base /app ./core
 COPY --from=design-system-base /app ./design-system
 
-# Install frontend dependencies (will link to local packages)
-COPY frontend/package*.json ./
+# Copy frontend with its package.json to maintain correct relative paths
+COPY frontend ./frontend
+
+# Install frontend dependencies (will link to local packages via file:../core)
+WORKDIR /app/frontend
 RUN npm install
 
-# Copy frontend source
-COPY frontend ./
-
+# Build frontend
 RUN npm run build
-
 
 CMD npm run dev
