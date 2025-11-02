@@ -1,0 +1,19 @@
+services:
+  core:
+    build: ./core
+    image: grid-explainer-core
+
+  design-system:
+    build: ./design-system
+    image: grid-explainer-design-system
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    image: grid-explainer-frontend
+    ports:
+      - "40024:40024"
+    depends_on:
+      - core
+      - design-system

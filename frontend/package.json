@@ -1,0 +1,25 @@
+{
+	"name": "grid-explainer",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite --host --port 40024",
+		"build": "exportcase check src && tsc && vite build",
+		"preview": "vite preview"
+	},
+	"dependencies": {
+		"@grid-explainer/core": "file:../core",
+		"@grid-explainer/design-system": "file:../design-system",
+		"react": "^18.3.1",
+		"react-dom": "^18.3.1"
+	},
+	"devDependencies": {
+		"@types/react": "^18.3.3",
+		"@types/react-dom": "^18.3.0",
+		"@vitejs/plugin-react": "^4.3.1",
+		"exportcase": "^1.2.5",
+		"typescript": "^5.5.3",
+		"vite": "^5.4.2"
+	}
+}

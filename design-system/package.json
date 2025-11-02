@@ -1,0 +1,33 @@
+{
+	"name": "@grid-explainer/design-system",
+	"version": "1.0.0",
+	"description": "React components for Grid Explainer",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		}
+	},
+	"scripts": {
+		"build": "exportcase check src && tsc",
+		"dev": "tsc --watch",
+		"clean": "rm -rf dist"
+	},
+	"keywords": ["react", "components", "grid", "ui"],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"react": "^18.3.1"
+	},
+	"devDependencies": {
+		"@types/react": "^18.3.3",
+		"exportcase": "^1.2.5",
+		"typescript": "^5.5.3"
+	},
+	"peerDependencies": {
+		"react": "^18.3.1"
+	}
+}

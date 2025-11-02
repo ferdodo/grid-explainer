@@ -1,0 +1,33 @@
+{
+	"name": "@grid-explainer/core",
+	"version": "1.0.0",
+	"description": "Core types and utilities for Grid Explainer",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		}
+	},
+	"scripts": {
+		"build": "exportcase check src && tsc && npm run test && npm run mutate",
+		"dev": "tsc --watch",
+		"clean": "rm -rf dist",
+		"test": "vitest run",
+		"test:watch": "vitest",
+		"test:coverage": "vitest run --coverage",
+		"mutate": "stryker run"
+	},
+	"keywords": ["grid", "css", "types"],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@stryker-mutator/core": "^9.3.0",
+		"@stryker-mutator/vitest-runner": "^9.3.0",
+		"exportcase": "^1.2.5",
+		"typescript": "^5.9.3",
+		"vitest": "^4.0.6"
+	}
+}
