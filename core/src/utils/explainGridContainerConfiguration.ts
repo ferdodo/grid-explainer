@@ -1,5 +1,8 @@
 import type { GridContainerConfiguration } from "../types";
 import { explainValue } from "./explainValue";
+import { gridTemplateColumnsConfigurationToCss } from "./gridTemplateColumnsConfigurationToCss";
+import { gridTemplateRowsConfigurationToCss } from "./gridTemplateRowsConfigurationToCss";
+import { gridTemplateAreasConfigurationToCss } from "./gridTemplateAreasConfigurationToCss";
 
 export function explainGridContainerConfiguration(
 	config: GridContainerConfiguration,
@@ -16,33 +19,37 @@ export function explainGridContainerConfiguration(
 
 	// Grid Template Columns
 	if (config.gridTemplateColumns) {
-		const explainedValue = explainValue(
-			"grid-template-columns",
+		const columnsCss = gridTemplateColumnsConfigurationToCss(
 			config.gridTemplateColumns,
 		);
-		explanations.push(
-			`The grid defines ${config.gridTemplateColumns.includes(" ") ? "multiple columns" : "columns"} with template: ${explainedValue}.`,
-		);
+		if (columnsCss) {
+			const explainedValue = explainValue("grid-template-columns", columnsCss);
+			explanations.push(
+				`The grid defines ${columnsCss.includes(" ") ? "multiple columns" : "columns"} with template: ${explainedValue}.`,
+			);
+		}
 	}
 
 	// Grid Template Rows
 	if (config.gridTemplateRows) {
-		const explainedValue = explainValue(
-			"grid-template-rows",
-			config.gridTemplateRows,
-		);
-		explanations.push(
-			`The grid defines ${config.gridTemplateRows.includes(" ") ? "multiple rows" : "rows"} with template: ${explainedValue}.`,
-		);
+		const rowsCss = gridTemplateRowsConfigurationToCss(config.gridTemplateRows);
+		if (rowsCss) {
+			const explainedValue = explainValue("grid-template-rows", rowsCss);
+			explanations.push(
+				`The grid defines ${rowsCss.includes(" ") ? "multiple rows" : "rows"} with template: ${explainedValue}.`,
+			);
+		}
 	}
 
 	// Grid Template Areas
 	if (config.gridTemplateAreas) {
-		const explainedValue = explainValue(
-			"grid-template-areas",
+		const areasCss = gridTemplateAreasConfigurationToCss(
 			config.gridTemplateAreas,
 		);
-		explanations.push(`The grid uses named areas: ${explainedValue}.`);
+		if (areasCss) {
+			const explainedValue = explainValue("grid-template-areas", areasCss);
+			explanations.push(`The grid uses named areas: ${explainedValue}.`);
+		}
 	}
 
 	// Gaps

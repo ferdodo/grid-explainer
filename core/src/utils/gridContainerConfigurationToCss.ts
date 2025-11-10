@@ -1,4 +1,7 @@
 import type { GridContainerConfiguration } from "../types";
+import { gridTemplateColumnsConfigurationToCss } from "./gridTemplateColumnsConfigurationToCss";
+import { gridTemplateRowsConfigurationToCss } from "./gridTemplateRowsConfigurationToCss";
+import { gridTemplateAreasConfigurationToCss } from "./gridTemplateAreasConfigurationToCss";
 
 export function gridContainerConfigurationToCss(
 	config: GridContainerConfiguration,
@@ -12,13 +15,26 @@ export function gridContainerConfigurationToCss(
 
 	// Grid Template
 	if (config.gridTemplateColumns) {
-		properties.push(`grid-template-columns: ${config.gridTemplateColumns};`);
+		const columnsCss = gridTemplateColumnsConfigurationToCss(
+			config.gridTemplateColumns,
+		);
+		if (columnsCss) {
+			properties.push(`grid-template-columns: ${columnsCss};`);
+		}
 	}
 	if (config.gridTemplateRows) {
-		properties.push(`grid-template-rows: ${config.gridTemplateRows};`);
+		const rowsCss = gridTemplateRowsConfigurationToCss(config.gridTemplateRows);
+		if (rowsCss) {
+			properties.push(`grid-template-rows: ${rowsCss};`);
+		}
 	}
 	if (config.gridTemplateAreas) {
-		properties.push(`grid-template-areas: ${config.gridTemplateAreas};`);
+		const areasCss = gridTemplateAreasConfigurationToCss(
+			config.gridTemplateAreas,
+		);
+		if (areasCss) {
+			properties.push(`grid-template-areas: ${areasCss};`);
+		}
 	}
 
 	// Gaps (gap takes precedence)

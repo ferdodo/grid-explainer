@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import type {
 	GridContainerConfiguration,
 	GridChildConfiguration,
@@ -8,7 +8,11 @@ import {
 	explainGridChildConfiguration,
 	gridContainerConfigurationToCss,
 	gridChildConfigurationToCss,
+	stringToGridTemplateColumnsConfiguration,
+	stringToGridTemplateRowsConfiguration,
+	stringToGridTemplateAreasConfiguration,
 } from "@grid-explainer/core";
+import type { GridContainerConfiguration as DesignSystemGridContainerConfiguration } from "@grid-explainer/design-system";
 import {
 	GridContainerConfigurator,
 	GridChildConfigurator,
@@ -22,10 +26,26 @@ interface ChildWithId {
 }
 
 function App() {
-	const [containerConfig, setContainerConfig] =
-		useState<GridContainerConfiguration>({
+	const [designSystemContainerConfig, setDesignSystemContainerConfig] =
+		useState<DesignSystemGridContainerConfiguration>({
 			display: "grid",
 		});
+
+	// Convert design-system config (with strings) to core config (with structured types)
+	const containerConfig = useMemo<GridContainerConfiguration>(() => {
+		return {
+			...designSystemContainerConfig,
+			gridTemplateColumns: stringToGridTemplateColumnsConfiguration(
+				designSystemContainerConfig.gridTemplateColumns,
+			),
+			gridTemplateRows: stringToGridTemplateRowsConfiguration(
+				designSystemContainerConfig.gridTemplateRows,
+			),
+			gridTemplateAreas: stringToGridTemplateAreasConfiguration(
+				designSystemContainerConfig.gridTemplateAreas,
+			),
+		};
+	}, [designSystemContainerConfig]);
 
 	const generateId = () => {
 		return `${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;
@@ -59,6 +79,8 @@ function App() {
 		gridChildConfigurationToCss(child.config),
 	);
 
+	const [isPreviewCollapsed, setIsPreviewCollapsed] = useState(false);
+
 	return (
 		<div className="app">
 			<header className="app-header">
@@ -70,11 +92,33 @@ function App() {
 			</header>
 
 			<div className="app-content">
+				<section className="config-section preview-section">
+					<div className="preview-header">
+						<h2>Visual Preview</h2>
+						<button
+							type="button"
+							onClick={() => setIsPreviewCollapsed(!isPreviewCollapsed)}
+							className="btn-collapse"
+							aria-label={
+								isPreviewCollapsed ? "Expand preview" : "Collapse preview"
+							}
+						>
+							{isPreviewCollapsed ? "▼" : "▲"}
+						</button>
+					</div>
+					{!isPreviewCollapsed && (
+						<GridPreview
+							containerCss={containerCss}
+							childrenCss={childrenCss}
+						/>
+					)}
+				</section>
+
 				<section className="config-section">
 					<h2>Grid Container Configuration</h2>
 					<GridContainerConfigurator
-						config={containerConfig}
-						onChange={setContainerConfig}
+						config={designSystemContainerConfig}
+						onChange={setDesignSystemContainerConfig}
 					/>
 					<div className="explanation-box">
 						<h3>Explanation:</h3>
@@ -132,11 +176,6 @@ function App() {
 							</div>
 						</div>
 					))}
-				</section>
-
-				<section className="config-section">
-					<h2>Visual Preview</h2>
-					<GridPreview containerCss={containerCss} childrenCss={childrenCss} />
 				</section>
 			</div>
 		</div>

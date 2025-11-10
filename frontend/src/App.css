@@ -49,7 +49,40 @@ body {
 	background: white;
 	padding: 25px;
 	border-radius: 10px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+
+.preview-section {
+	position: sticky;
+	top: 20px;
+	z-index: 10;
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.preview-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 15px;
+}
+
+.preview-header h2 {
+	margin-bottom: 0;
+}
+
+.btn-collapse {
+	background: #667eea;
+	color: white;
+	border: none;
+	padding: 5px 15px;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 1rem;
+	transition: background 0.3s;
+}
+
+.btn-collapse:hover {
+	background: #5568d3;
 }
 
 .config-section h2 {
@@ -225,6 +258,35 @@ body {
 
 .form-group-full {
 	grid-column: 1 / -1;
+}
+
+.grid-template-wrapper {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 0;
+}
+
+.grid-template-item {
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+}
+
+.grid-template-item:first-child {
+	margin-top: 0 !important;
+}
+
+@media (min-width: 1200px) {
+	.grid-template-wrapper {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		gap: 30px;
+		align-items: start;
+	}
+
+	.grid-template-item {
+		margin-top: 0 !important;
+		margin-bottom: 0 !important;
+	}
 }
 
 @media (max-width: 768px) {

@@ -23,7 +23,13 @@ describe("gridContainerConfigurationToCss", () => {
 
 	it("should convert gridTemplateColumns", () => {
 		const config: GridContainerConfiguration = {
-			gridTemplateColumns: "1fr 2fr 1fr",
+			gridTemplateColumns: {
+				values: [
+					{ value: 1, unit: "fr" },
+					{ value: 2, unit: "fr" },
+					{ value: 1, unit: "fr" },
+				],
+			},
 		};
 		const result = gridContainerConfigurationToCss(config);
 		expect(result).toContain("grid-template-columns: 1fr 2fr 1fr;");
@@ -31,7 +37,12 @@ describe("gridContainerConfigurationToCss", () => {
 
 	it("should convert gridTemplateRows", () => {
 		const config: GridContainerConfiguration = {
-			gridTemplateRows: "100px 200px",
+			gridTemplateRows: {
+				values: [
+					{ value: 100, unit: "px" },
+					{ value: 200, unit: "px" },
+				],
+			},
 		};
 		const result = gridContainerConfigurationToCss(config);
 		expect(result).toContain("grid-template-rows: 100px 200px;");
@@ -39,7 +50,12 @@ describe("gridContainerConfigurationToCss", () => {
 
 	it("should convert gridTemplateAreas", () => {
 		const config: GridContainerConfiguration = {
-			gridTemplateAreas: '"header header" "sidebar main"',
+			gridTemplateAreas: {
+				areas: [
+					["header", "header"],
+					["sidebar", "main"],
+				],
+			},
 		};
 		const result = gridContainerConfigurationToCss(config);
 		expect(result).toContain(
@@ -290,7 +306,12 @@ describe("gridContainerConfigurationToCss", () => {
 	it("should combine multiple properties", () => {
 		const config: GridContainerConfiguration = {
 			display: "grid",
-			gridTemplateColumns: "1fr 2fr",
+			gridTemplateColumns: {
+				values: [
+					{ value: 1, unit: "fr" },
+					{ value: 2, unit: "fr" },
+				],
+			},
 			gap: "20px",
 			justifyItems: "center",
 			width: "100%",

@@ -6,7 +6,7 @@ describe("explainValue", () => {
 		it("should explain display: grid", () => {
 			const result = explainValue("display", "grid");
 			expect(result).toContain("grid");
-			expect(result).toContain("block-level grid container");
+			expect(result).toContain("grid container");
 		});
 
 		it("should explain display: inline-grid", () => {
@@ -24,7 +24,7 @@ describe("explainValue", () => {
 		it("should explain display: flex", () => {
 			const result = explainValue("display", "flex");
 			expect(result).toContain("flex");
-			expect(result).toContain("block-level flex container");
+			expect(result).toContain("flex container");
 		});
 
 		it("should explain display: inline-flex", () => {

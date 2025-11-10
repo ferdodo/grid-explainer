@@ -74,13 +74,13 @@ function explainDisplayValue(
 ): string {
 	switch (normalizedValue) {
 		case "grid":
-			return `${originalValue} (creates a block-level grid container where items are placed in a defined grid structure)`;
+			return `${originalValue} (creates a grid container where items are placed in a defined grid structure)`;
 		case "inline-grid":
 			return `${originalValue} (creates an inline-level grid container, behaving like an inline element while containing a grid)`;
 		case "subgrid":
 			return `${originalValue} (creates a grid container that inherits the grid tracks from its parent grid)`;
 		case "flex":
-			return `${originalValue} (creates a block-level flex container where items can flex and wrap)`;
+			return `${originalValue} (creates a flex container where items can flex and wrap)`;
 		case "inline-flex":
 			return `${originalValue} (creates an inline-level flex container)`;
 		default:

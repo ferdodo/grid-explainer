@@ -2,7 +2,7 @@ export interface GridContainerConfiguration {
 	// Display
 	display?: "grid" | "inline-grid" | "subgrid";
 
-	// Grid Template
+	// Grid Template (as strings for UI simplicity)
 	gridTemplateColumns?: string;
 	gridTemplateRows?: string;
 	gridTemplateAreas?: string;

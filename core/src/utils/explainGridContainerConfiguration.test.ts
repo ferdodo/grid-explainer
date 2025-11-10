@@ -15,6 +15,7 @@ describe("explainGridContainerConfiguration", () => {
 		const config: GridContainerConfiguration = { display: "grid" };
 		const result = explainGridContainerConfiguration(config);
 		expect(result).toContain("display: grid");
+		expect(result).toContain("creates a grid container");
 	});
 
 	it("should explain inline-grid display", () => {
@@ -25,7 +26,9 @@ describe("explainGridContainerConfiguration", () => {
 
 	it("should explain gridTemplateColumns with single value", () => {
 		const config: GridContainerConfiguration = {
-			gridTemplateColumns: "1fr",
+			gridTemplateColumns: {
+				values: [{ value: 1, unit: "fr" }],
+			},
 		};
 		const result = explainGridContainerConfiguration(config);
 		expect(result).toContain("columns");
@@ -34,7 +37,13 @@ describe("explainGridContainerConfiguration", () => {
 
 	it("should explain gridTemplateColumns with multiple values", () => {
 		const config: GridContainerConfiguration = {
-			gridTemplateColumns: "1fr 2fr 1fr",
+			gridTemplateColumns: {
+				values: [
+					{ value: 1, unit: "fr" },
+					{ value: 2, unit: "fr" },
+					{ value: 1, unit: "fr" },
+				],
+			},
 		};
 		const result = explainGridContainerConfiguration(config);
 		expect(result).toContain("multiple columns");
@@ -42,7 +51,9 @@ describe("explainGridContainerConfiguration", () => {
 	});
 
 	it("should explain gridTemplateRows with single value", () => {
-		const config: GridContainerConfiguration = { gridTemplateRows: "100px" };
+		const config: GridContainerConfiguration = {
+			gridTemplateRows: { values: [{ value: 100, unit: "px" }] },
+		};
 		const result = explainGridContainerConfiguration(config);
 		expect(result).toContain("rows");
 		expect(result).toContain("100px");
@@ -50,7 +61,12 @@ describe("explainGridContainerConfiguration", () => {
 
 	it("should explain gridTemplateRows with multiple values", () => {
 		const config: GridContainerConfiguration = {
-			gridTemplateRows: "100px 200px",
+			gridTemplateRows: {
+				values: [
+					{ value: 100, unit: "px" },
+					{ value: 200, unit: "px" },
+				],
+			},
 		};
 		const result = explainGridContainerConfiguration(config);
 		expect(result).toContain("multiple rows");
@@ -59,11 +75,16 @@ describe("explainGridContainerConfiguration", () => {
 
 	it("should explain gridTemplateAreas", () => {
 		const config: GridContainerConfiguration = {
-			gridTemplateAreas: '"header header" "sidebar main"',
+			gridTemplateAreas: {
+				areas: [
+					["header", "header"],
+					["sidebar", "main"],
+				],
+			},
 		};
 		const result = explainGridContainerConfiguration(config);
 		expect(result).toContain("named areas");
-		expect(result).toContain('"header header" "sidebar main"');
+		expect(result).toContain("header header");
 	});
 
 	it("should explain gap property", () => {
@@ -267,7 +288,12 @@ describe("explainGridContainerConfiguration", () => {
 	it("should combine multiple explanations", () => {
 		const config: GridContainerConfiguration = {
 			display: "grid",
-			gridTemplateColumns: "1fr 2fr",
+			gridTemplateColumns: {
+				values: [
+					{ value: 1, unit: "fr" },
+					{ value: 2, unit: "fr" },
+				],
+			},
 			gap: "20px",
 			justifyItems: "center",
 		};
@@ -282,8 +308,12 @@ describe("explainGridContainerConfiguration", () => {
 	it("should handle all properties together", () => {
 		const config: GridContainerConfiguration = {
 			display: "grid",
-			gridTemplateColumns: "repeat(3, 1fr)",
-			gridTemplateRows: "auto 1fr auto",
+			gridTemplateColumns: {
+				repeat: { count: 3, value: { value: 1, unit: "fr" } },
+			},
+			gridTemplateRows: {
+				values: [{ unit: "auto" }, { value: 1, unit: "fr" }, { unit: "auto" }],
+			},
 			gap: "1rem",
 			gridAutoFlow: "row dense",
 			justifyItems: "stretch",

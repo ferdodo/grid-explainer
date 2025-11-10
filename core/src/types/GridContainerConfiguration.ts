@@ -1,11 +1,15 @@
+import type { GridTemplateColumnsConfiguration } from "./GridTemplateColumnsConfiguration";
+import type { GridTemplateRowsConfiguration } from "./GridTemplateRowsConfiguration";
+import type { GridTemplateAreasConfiguration } from "./GridTemplateAreasConfiguration";
+
 export interface GridContainerConfiguration {
 	// Display
 	display?: "grid" | "inline-grid" | "subgrid";
 
 	// Grid Template
-	gridTemplateColumns?: string;
-	gridTemplateRows?: string;
-	gridTemplateAreas?: string;
+	gridTemplateColumns?: GridTemplateColumnsConfiguration;
+	gridTemplateRows?: GridTemplateRowsConfiguration;
+	gridTemplateAreas?: GridTemplateAreasConfiguration;
 
 	// Grid Gaps
 	gridColumnGap?: string;

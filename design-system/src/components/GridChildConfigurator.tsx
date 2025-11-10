@@ -1,5 +1,5 @@
 import { useId } from "react";
-import type { GridChildConfiguration } from "../GridChildConfiguration";
+import type { GridChildConfiguration } from "../GridChildConfiguration.js";
 
 interface Props {
 	config: GridChildConfiguration;
